@@ -172,7 +172,17 @@ export class DetalleClienteComponent implements OnInit, OnDestroy {
           this.monto = 0;
           this.descripcion = '';
           this.cdr.detectChanges();
-          this.cargarTransacciones(this.cuentaSeleccionada!.numeroCuenta!);
+
+          // Recargar cuentas para actualizar el saldo
+          if (this.cliente?.id) {
+            this.cargarCuentas(this.cliente.id);
+            // También recargar transacciones de la cuenta actual
+            if (this.cuentaSeleccionada?.numeroCuenta) {
+              setTimeout(() => {
+                this.cargarTransacciones(this.cuentaSeleccionada!.numeroCuenta!);
+              }, 500);
+            }
+          }
         },
         error: (err) => {
           this.msgError =
