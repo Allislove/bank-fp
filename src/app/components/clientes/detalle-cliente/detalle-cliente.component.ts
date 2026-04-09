@@ -162,11 +162,6 @@ export class DetalleClienteComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!this.descripcion.trim()) {
-      this.msgError = 'La descripción es requerida';
-      return;
-    }
-
     const transaccion: Transaccion = {
       tipo: this.tipoTransaccion,
       monto: this.monto,
