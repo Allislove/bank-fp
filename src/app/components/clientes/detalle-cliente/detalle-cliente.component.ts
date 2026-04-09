@@ -7,7 +7,6 @@ import { CuentaService, Cuenta } from '../../../services/cuenta.service';
 import { TransaccionService, Transaccion } from '../../../services/transaccion.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import './detalle-cliente.component.css';
 
 @Component({
   selector: 'app-detalle-cliente',
@@ -88,8 +87,21 @@ export class DetalleClienteComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.cuentas = data;
           if (data.length > 0) {
-            this.cuentaSeleccionada = data[0];
-            this.cargarTransacciones(data[0].numeroCuenta!);
+            // Intentar mantener la cuenta seleccionada actual
+            if (
+              this.cuentaSeleccionada?.numeroCuenta &&
+              data.find((c) => c.numeroCuenta === this.cuentaSeleccionada?.numeroCuenta)
+            ) {
+              // Actualizar la cuenta con los nuevos datos (saldo actualizado)
+              this.cuentaSeleccionada = data.find(
+                (c) => c.numeroCuenta === this.cuentaSeleccionada?.numeroCuenta
+              )!;
+              this.cargarTransacciones(this.cuentaSeleccionada.numeroCuenta!);
+            } else {
+              // Si no hay seleccionada o no existe, usar la primera
+              this.cuentaSeleccionada = data[0];
+              this.cargarTransacciones(data[0].numeroCuenta!);
+            }
           }
           this.cargando = false;
           this.cdr.detectChanges();

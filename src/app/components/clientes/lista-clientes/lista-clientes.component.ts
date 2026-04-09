@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ClienteService, Cliente } from '../../../services/cliente.service';
-import './lista-clientes.component.css';
 
 @Component({
   selector: 'app-lista-clientes',
