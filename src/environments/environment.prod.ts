@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.example.com/api/v1'
+  apiUrl: 'https://system-l3f3.onrender.com/api/v1'
 };
