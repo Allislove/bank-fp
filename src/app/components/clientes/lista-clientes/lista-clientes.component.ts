@@ -103,6 +103,7 @@ export class ListaClientesComponent implements OnInit {
     this.msgExito = '';
 
     if (!this.validarFormulario()) {
+      this.cdr.detectChanges();
       return;
     }
 
@@ -113,12 +114,14 @@ export class ListaClientesComponent implements OnInit {
         .subscribe({
           next: () => {
             this.msgExito = 'Cliente actualizado exitosamente';
+            this.cdr.detectChanges();
             this.cargarClientes();
             this.cerrarFormulario();
           },
           error: (err) => {
             this.msgError =
               'Error al actualizar: ' + (err.error?.mensaje || err.statusText);
+            this.cdr.detectChanges();
             console.error('[ListaClientesComponent] Error actualizando:', err);
           },
         });
@@ -127,12 +130,14 @@ export class ListaClientesComponent implements OnInit {
       this.clienteService.crearCliente(this.nuevoCliente).subscribe({
         next: () => {
           this.msgExito = 'Cliente creado exitosamente';
+          this.cdr.detectChanges();
           this.cargarClientes();
           this.cerrarFormulario();
         },
         error: (err) => {
           this.msgError =
             'Error al crear: ' + (err.error?.mensaje || err.statusText);
+          this.cdr.detectChanges();
           console.error('[ListaClientesComponent] Error creando:', err);
         },
       });
@@ -149,11 +154,13 @@ export class ListaClientesComponent implements OnInit {
         this.clienteService.eliminarCliente(cliente.id).subscribe({
           next: () => {
             this.msgExito = 'Cliente eliminado exitosamente';
+            this.cdr.detectChanges();
             this.cargarClientes();
           },
           error: (err) => {
             this.msgError =
               'Error al eliminar: ' + (err.error?.mensaje || err.statusText);
+            this.cdr.detectChanges();
             console.error('[ListaClientesComponent] Error eliminando:', err);
           },
         });

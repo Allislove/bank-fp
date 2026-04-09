@@ -6,9 +6,9 @@
     </button>
   </div>
 
-  <!-- Mensajes -->
-  <div *ngIf="msgError" class="alert alert-error">{{ msgError }}</div>
-  <div *ngIf="msgExito" class="alert alert-success">{{ msgExito }}</div>
+  <!-- Mensajes generales (solo para operaciones fuera del modal) -->
+  <div *ngIf="msgError && !mostrarFormulario" class="alert alert-error">{{ msgError }}</div>
+  <div *ngIf="msgExito && !mostrarFormulario" class="alert alert-success">{{ msgExito }}</div>
 
   <!-- Búsqueda -->
   <div class="search-container">
@@ -81,6 +81,10 @@
       </div>
 
       <div class="modal-body">
+        <!-- Mensajes en el modal -->
+        <div *ngIf="msgError" class="alert alert-error" style="margin-bottom: 1.5rem;">{{ msgError }}</div>
+        <div *ngIf="msgExito" class="alert alert-success" style="margin-bottom: 1.5rem;">{{ msgExito }}</div>
+
         <div class="form-group">
           <label>Nombre *</label>
           <input
