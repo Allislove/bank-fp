@@ -1,4 +1,9 @@
 <div class="container">
+  <!-- Debug -->
+  <div style="background: #f0f0f0; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; font-size: 0.9rem;">
+    <p style="margin: 0.25rem;"><strong>Estado:</strong> cargando={{ cargando }}, cliente={{ cliente?.id || 'null' }}, cuentas={{ cuentas.length }}</p>
+  </div>
+
   <!-- Header -->
   <div class="header">
     <button class="btn btn-secondary btn-back" (click)="volver()">
@@ -87,12 +92,12 @@
       <div class="transactions-list">
         <div
           *ngFor="let tx of transacciones"
-          [ngClass]="'transaction-item tx-' + tx.tipo.toLowerCase()"
+          [ngClass]="'transaction-item tx-' + (tx.tipo === 'CONSIGNACION' ? 'deposito' : 'retiro')"
         >
           <div class="tx-header">
-            <span class="tx-type">{{ tx.tipo }}</span>
-            <span class="tx-amount" [ngClass]="tx.tipo === 'DEPOSITO' ? 'positive' : 'negative'">
-              {{ tx.tipo === 'DEPOSITO' ? '+' : '-' }}${{ tx.monto | number: '1.2-2' }}
+            <span class="tx-type">{{ tx.tipo === 'CONSIGNACION' ? 'CONSIGNACIÓN' : tx.tipo }}</span>
+            <span class="tx-amount" [ngClass]="tx.tipo === 'CONSIGNACION' ? 'positive' : 'negative'">
+              {{ tx.tipo === 'CONSIGNACION' ? '+' : '-' }}${{ tx.monto | number: '1.2-2' }}
             </span>
           </div>
           <div class="tx-details">
@@ -122,10 +127,10 @@
                 <input
                   type="radio"
                   [(ngModel)]="tipoTransaccion"
-                  value="DEPOSITO"
+                  value="CONSIGNACION"
                   name="tipoTransaccion"
                 />
-                Depósito
+                Consignación
               </label>
               <label class="radio-label">
                 <input

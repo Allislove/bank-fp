@@ -25,7 +25,7 @@ export class DetalleClienteComponent implements OnInit, OnDestroy {
   cargando: boolean = false;
 
   cuentaSeleccionada: Cuenta | null = null;
-  tipoTransaccion: 'DEPOSITO' | 'RETIRO' = 'DEPOSITO';
+  tipoTransaccion: 'CONSIGNACION' | 'RETIRO' = 'CONSIGNACION';
   monto: number = 0;
   descripcion: string = '';
 
@@ -167,7 +167,8 @@ export class DetalleClienteComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          this.msgExito = `${this.tipoTransaccion.toLowerCase()} registrado exitosamente`;
+          const tipoNombre = this.tipoTransaccion === 'CONSIGNACION' ? 'Consignación' : 'Retiro';
+          this.msgExito = `${tipoNombre} registrada exitosamente`;
           this.monto = 0;
           this.descripcion = '';
           this.cdr.detectChanges();
