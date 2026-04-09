@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface Transaccion {
   id?: string;
-  tipo: 'DEPOSITO' | 'RETIRO';
+  tipo: 'CONSIGNACION' | 'RETIRO';
   monto: number;
   numeroCuenta: string;
   descripcion: string;
